@@ -7,30 +7,58 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body onload="onInit()">
+    <header class="header">
+        <h1>Meme Generator</h1>
+        <form method="get">
+            <label for="category">Search:</label>
+            <input list="keyboards" name="category" id="category">
+            <datalist id="keyboards">
+              <option value="happy">
+            </datalist>
+            <input type="submit">
+          </form>
+    </header>
+
+    <div class="main">
+        <div class="control">
+            <canvas id="meme-canvas" width="500" height="500"></canvas>
+            
+            <div class="control-box">
+                <input type="text" name="textType" onkeyup="onTextType()" />
+
+                
+                <input type="color" name="textColor" onchange="onTextColor()" value="#ffffff" />
+                <input type="color" name="strokeColor" onchange="onStrokeColor()" value="#000000" />
+
+                <button onclick="onAddNewLine()">Add new line</button>
+
+                <select onchange="onFontFamily(this.value)"> 
+                    <option value="Arial">Arial</option> 
+                    <option value="Cursive">cursive</option> 
+                    <option value="Impcat">Impact</option> 
+                    <option value="Monospace">Monospace</option> 
+                    <option value="Tahoma">Tahoma</option> 
+                    <option value="Times New Roman">Times New Roman</option> 
+                </select> 
+                <!-- <button onclick="onFontSize(1)">increase</button> 
+                <button onclick="onFontSize(-1)">decrease</button> -->
+
+                <button onclick="onTextAlign('left')">align left</button>
+                <button onclick="onTextAlign('center')">align center</button>
+                <button onclick="onTextAlign('right')">align right</button>
+
+                <button onclick="clearCanvas()">Clear</button>
+                <a href="#" class="download-link" onclick="downloadCanvas(this)" download="">Download</a> 
+            </div>
+        </div>
     
-    <form method="get">
-        <label for="category">Search:</label>
-        <input list="keyboards" name="category" id="category">
-        <datalist id="keyboards">
-          <option value="happy">
-        </datalist>
-        <input type="submit">
-      </form>
-
-    <div class="generator">
-        <canvas id="meme-canvas" width="300" height="300" onclick="onWrite(event)"></canvas>
+       
+        <div class="gallery"></div>
     </div>
-
-    <div class="gallery">
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-        <img src="gallery/2.jpg" alt="" title="" onclick="renderCanvas(2)"/>
-    </div>
+    <footer class="footer">
+        Yulia
+    </footer>
     <script src="js/controller.js"></script>
+    <script src="js/service.js"></script>
 </body>
 </html>
