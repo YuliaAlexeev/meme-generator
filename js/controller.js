@@ -6,7 +6,7 @@ function onInit(){
     renderImages();
     gElCanvas = document.querySelector('#meme-canvas');
     gCtx = gElCanvas.getContext('2d');
-    console.log('canvas properties:', gCtx)
+    console.log('canvas properties:', gCtx);
 }
 
 function drawImg() {
@@ -23,42 +23,48 @@ function drawImg() {
 
 function renderText(){
     var currentMeme = getMeme();
-    drawText(currentMeme.lines[0].txt, 50, 50)
+    currentMeme
+    var currentLine = getCurrentLine();
+    drawText(currentLine.txt, currentLine.x, currentLine.y)
+    document.querySelector('input[name=textType]').value = currentLine.txt;
 }
 
 function drawText(text, x, y){ 
-    var currentMeme = getMeme(); 
-    var selectedLineIdx = currentMeme.selectedLineIdx;
+
+
+    // var currentLine = getCurrentLine();
+    var lines = getMeme().lines;
+
+    gCtx.lineWidth = '2';
+    lines.forEach(line => {
+        gCtx.font = `${line.size}px ${line.font}`;
+        gCtx.fillStyle = line.color;
+        gCtx.strokeStyle = line.strokeColor;
+        gCtx.textAlign = line.align;
+        gCtx.fillText(line.txt, line.x, line.y);
+        gCtx.strokeText(line.txt, line.x, line.y);
+    })
     
-    gCtx.lineWidth = '2'
-    gCtx.font = `${currentMeme.lines[selectedLineIdx].size}px ${currentMeme.lines[selectedLineIdx].font}`;
-    gCtx.fillStyle = currentMeme.lines[selectedLineIdx].color;
-    gCtx.strokeStyle = currentMeme.lines[selectedLineIdx].strokeColor;
-    gCtx.textAlign = currentMeme.lines[selectedLineIdx].align;
-    gCtx.fillText(text, x, y);
-    gCtx.strokeText(text, x, y);
+    // gCtx.lineWidth = '2';
+    // gCtx.font = `${currentLine.size}px ${currentLine.font}`;
+    // gCtx.fillStyle = currentLine.color;
+    // gCtx.strokeStyle = currentLine.strokeColor;
+    // gCtx.textAlign = currentLine.align;
+    // gCtx.fillText(text, x, y);
+    // gCtx.strokeText(text, x, y);
 }
 
 function onTextColor(){
-    var currentMeme = getMeme();
-    var selectedLineIdx = currentMeme.selectedLineIdx;
-
     var txtColor = document.querySelector('input[name="textColor"]').value;
-    currentMeme.lines[selectedLineIdx].color = txtColor;
     setTextColor(txtColor);
     drawImg();
 }
 
 function onStrokeColor(){
-    var currentMeme = getMeme();
-    var selectedLineIdx = currentMeme.selectedLineIdx;
-
     var strkColor = document.querySelector('input[name="strokeColor"]').value;
-    currentMeme.lines[selectedLineIdx].strokeColor = strkColor;
-
-    gStrokeColor = strkColor;
+    setStrokeColor(strkColor);
+    drawImg();
 }
-
 
 function onTextType(){
     var text = document.querySelector('input[name=textType]').value;
@@ -77,7 +83,10 @@ function onAddNewLine(){
     document.querySelector('input[name=textType]').value = newText;
  
     drawText(newText, gElCanvas.width/2, gElCanvas.height/2);
+    console.log('newText', newText);
     setNewLine(newText);
+    drawImg();
+   
 }
 
 function renderImages(){
@@ -90,54 +99,22 @@ function renderImages(){
     document.querySelector('.gallery').innerHTML = htmlStr;
 }
 
-function onTextAlign(align){
-    console.log('align', align);
-    if(align === 'right'){
-        gAlign = 'right';
-    } else if(align === 'left'){
-        gAlign = 'left';
-    }   else if(align === 'center'){
-        gAlign = 'center';
-    }
-    setTextAlign(gAlign);
+function onTextAlign(alignText){
+    setTextAlign(alignText);
     drawImg();
 }
-
-
 
 function onFontFamily(fontStyle){
-    if(fontStyle === 'Arial'){
-        gFontStyle = 'Arial';
-    } else if(fontStyle === 'Times New Roman'){
-        gFontStyle = 'Times New Roman';
-    } else if(fontStyle === 'Cursive'){
-        gFontStyle = 'Cursive';
-    }   else if(fontStyle === 'Monospace'){
-        gFontStyle = 'Monospace';
-    }   else if(fontStyle === 'Tahoma'){
-        gFontStyle = 'Tahoma';
-    }
-    else{
-        gFontStyle = 'Impact';
-    }
-    setFontFamily(gFontStyle);
+    console.log(fontStyle)
+    setFontFamily(fontStyle);
     drawImg();
 }
-
-
 
 // function onFontSize(size){
 //     var i = 1;
  
 //     document.querySelector('.increase').innerText = i++;
 // }
-
-
-
-
-
-
-
 
 
 function clearCanvas() {

@@ -1,18 +1,10 @@
 var gKeywords = {'happy': 12,'funny puk': 1};
+var gNewLine = 0;
 
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
-    lines: [{
-        txt: 'I never eat Falafel',
-        size: 40,
-        align: 'left',
-        color: 'red',
-        strokeColor: 'black',
-        font: 'Impact',
-        x: 0,
-        y: 0
-    }]
+    lines: [createLine('It\'s pretty', 40, 70)]
 }
 
 var gImgs = [{id: 1, url: 'gallery/1.jpg', keywords: ['happy']},
@@ -28,13 +20,26 @@ var gImgs = [{id: 1, url: 'gallery/1.jpg', keywords: ['happy']},
             ];
 
 
+function createLine(txt, x, y){
+    return {
+        txt,
+        size: 40,
+        align: 'left',
+        color: '#ffffff',
+        strokeColor: '#000000',
+        font: 'Impact',
+        x,
+        y
+    }
+}
 
-
-
-
-function setNewLine(newLine){
-    gMeme.selectedLineIdx =1;
-    gMeme.lines[1].txt = newLine;
+function setNewLine(newLineText){
+    gNewLine++;
+    let newLineIdx = gNewLine;
+    console.log('newLineIdx', newLineIdx);
+    gMeme.selectedLineIdx = newLineIdx;
+    gMeme.lines.push(createLine(newLineText, 180, 250));
+   
 }
 
 function getImageById(imgId){
@@ -42,19 +47,23 @@ function getImageById(imgId){
 }
 
 function setMemeText(text){
-    gMeme.lines[0].txt = text;
+    getCurrentLine().txt = text;
 }
 
 function setFontFamily(font){
-    gMeme.lines[0].font = font;
+    getCurrentLine().font = font;
 }
 
 function setTextAlign(textAlign){
-    gMeme.lines[0].align = textAlign;
+    getCurrentLine().align = textAlign;
 }
 
-function setTextColor(color){
-    gMeme.lines[0].align = textAlign;
+function setTextColor(textColor){
+    getCurrentLine().color = textColor;
+}
+
+function setStrokeColor(strokeColor){
+    getCurrentLine().strokeColor = strokeColor;
 }
 
 function selectImg(imgId){
@@ -69,8 +78,11 @@ function getMeme(){
     return gMeme;
 } 
 
-function getLine(){
-    return gMeme.lines;
+function getCurrentLineIdx(){
+    return gMeme.selectedLineIdx;
 } 
 
 
+function getCurrentLine(){
+    return gMeme.lines[getCurrentLineIdx()];
+}
