@@ -4,9 +4,11 @@ var gCtx;
 
 function onInit(){
     renderImages();
+    renderKeywords();
     gElCanvas = document.querySelector('#meme-canvas');
     gCtx = gElCanvas.getContext('2d');
     console.log('canvas properties:', gCtx);
+  
 }
 
 function drawImg() {
@@ -22,36 +24,38 @@ function drawImg() {
 }
 
 function renderText(){
-    var currentMeme = getMeme();
-    currentMeme
-    var currentLine = getCurrentLine();
-    drawText(currentLine.txt, currentLine.x, currentLine.y)
-    document.querySelector('input[name=textType]').value = currentLine.txt;
+    if(getCurrentLineIdx() >= 0){
+        var currentLine = getCurrentLine();
+        drawText()
+        document.querySelector('input[name=textType]').value = currentLine.txt;
+    }
 }
 
-function drawText(text, x, y){ 
+function drawText(){ 
+    const currentLineIdx = getCurrentLineIdx();
 
+    if(currentLineIdx >= 0){
+        var lines = getMeme().lines;
+        gCtx.lineWidth = '2';
 
-    // var currentLine = getCurrentLine();
-    var lines = getMeme().lines;
-
-    gCtx.lineWidth = '2';
-    lines.forEach(line => {
-        gCtx.font = `${line.size}px ${line.font}`;
-        gCtx.fillStyle = line.color;
-        gCtx.strokeStyle = line.strokeColor;
-        gCtx.textAlign = line.align;
-        gCtx.fillText(line.txt, line.x, line.y);
-        gCtx.strokeText(line.txt, line.x, line.y);
-    })
-    
-    // gCtx.lineWidth = '2';
-    // gCtx.font = `${currentLine.size}px ${currentLine.font}`;
-    // gCtx.fillStyle = currentLine.color;
-    // gCtx.strokeStyle = currentLine.strokeColor;
-    // gCtx.textAlign = currentLine.align;
-    // gCtx.fillText(text, x, y);
-    // gCtx.strokeText(text, x, y);
+        lines.forEach(line => {
+            gCtx.font = `${line.size}px ${line.font}`;
+            gCtx.fillStyle = line.color;
+            gCtx.strokeStyle = line.strokeColor;
+            gCtx.textAlign = line.align;
+            if(line === getCurrentLine()){
+                gCtx.shadowBlur = 20;
+                gCtx.shadowColor = "Blue";
+            }
+            else{
+                gCtx.shadowColor = "transparent";
+            }
+            
+            gCtx.fillText(line.txt, line.x, line.y);
+            gCtx.strokeText(line.txt, line.x, line.y);
+        })
+        
+    }
 }
 
 function onTextColor(){
@@ -78,14 +82,29 @@ function onSelectedImg(imageId){
 }
 
 function onAddNewLine(){
-
     var newText = 'New Line';
     document.querySelector('input[name=textType]').value = newText;
- 
-    drawText(newText, gElCanvas.width/2, gElCanvas.height/2);
-    console.log('newText', newText);
+    drawText();
     setNewLine(newText);
     drawImg();
+}
+
+function onDeleteLine(){
+    deleteLine();
+    drawImg();
+}
+
+function onSwichLine(){
+    var lines = getMeme().lines;
+    // var currentLine = getCurrentLine();
+   
+
+    if(gMeme.selectedLineIdx === -1){
+        gMeme.selectedLineIdx = 0;
+    }
+
+
+    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx);
    
 }
 
@@ -110,16 +129,31 @@ function onFontFamily(fontStyle){
     drawImg();
 }
 
-// function onFontSize(size){
-//     var i = 1;
- 
-//     document.querySelector('.increase').innerText = i++;
-// }
-
-
-function clearCanvas() {
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
+function onFontSize(size){
+    var currentLineSize = getCurrentLine().size + size;
+    setFontSize(currentLineSize)
+    drawImg();
 }
+
+function onFilterKeyword(keywordToSearch){
+    var images = getImages();
+    var htmlStr = '';
+    var filteredImages = images.filter(img => img.keywords.includes(keywordToSearch));
+    filteredImages.forEach(img => {
+        htmlStr += `<img src="${img.url}" alt="" title="" onclick="onSelectedImg(${img.id})"/>`;
+    });
+    document.querySelector('.gallery').innerHTML = htmlStr;
+}
+
+function renderKeywords(){
+    var keywords = getKeywords();
+    var htmlStr = '';
+    for (const keyword in keywords) {
+        htmlStr += `<li><a href="#" onClick="onFilterKeyword('${keyword}')" style="font-size:${keywords[keyword]}px">${keyword}</a></li>`;
+    }
+    document.querySelector('.keywords-list').innerHTML = htmlStr;
+}
+
 
 function downloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
@@ -127,3 +161,4 @@ function downloadCanvas(elLink) {
     elLink.href = data;
     elLink.download = 'my-meme.jpg';
 }
+

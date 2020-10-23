@@ -4,51 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
-<body onload="onInit()">
-    <header class="header">
-        <h1>Meme Generator</h1>
-        <form method="get">
-            <label for="category">Search:</label>
-            <input list="keyboards" name="category" id="category">
-            <datalist id="keyboards">
-              <option value="happy">
+<body onload="onInit()" class="flex">
+    <header class="header flex space-between">
+        <h1 class="header-title">Meme Generator</h1>
+        
+        <ul class="header-nav clear-list">
+            <li><a href="#">My Memes</a></li>
+            <li><a href="#">About Me</a></li>
+        </ul>
+    </header>
+    <section class="sub-header">
+
+        <form onchange="onSearch(this.value)">
+            
+            <input list="keyboards" name="category" id="category" placeholder="Enter search keyword">
+
+            <datalist id="keyboards" >
+                <option value="happy" >
+                <option value="Cat"></option>
+                <option value="Dog"></option>
+                <option value="Cute"></option>
+                <option value="Funny"></option>
+                <option value="Trump"></option>
+                <option value="Baby"></option>
+                  
             </datalist>
             <input type="submit">
-          </form>
-    </header>
+        </form>
 
+        <div class="keywords">
+            <ul class="keywords-list clear-list"></ul>
+        </div>
+
+    </section>
     <div class="main">
-        <div class="control">
+        <div class="control flex">
             <canvas id="meme-canvas" width="500" height="500"></canvas>
             
-            <div class="control-box">
-                <input type="text" name="textType" onkeyup="onTextType()" />
-
+            <div class="control-box flex">
+                <input type="text" name="textType" onkeyup="onTextType()" class="control-box-row"/>
+                <div class="control-box-row flex justify-center">
+                    <button onclick="onSwichLine()" class="fas fa-sync-alt"></button>
+                    <button onclick="onAddNewLine()" class="fas fa-plus-circle"></button>
+                    <button onclick="onDeleteLine()" class="fas fa-trash-alt"></button>
+                </div>
                 
-                <input type="color" name="textColor" onchange="onTextColor()" value="#ffffff" />
-                <input type="color" name="strokeColor" onchange="onStrokeColor()" value="#000000" />
+                <div class="control-box-row flex space-between">
+                    <button onclick="onFontSize(1)"><i class="fas fa-font"></i><i class="fas fa-plus"></i></button> 
+                    <button onclick="onFontSize(-1)"><i class="fas fa-font"></i><i class="fas fa-minus"></i></button>
+                    <button onclick="onTextAlign('left')" class="fas fa-align-left"></button>
+                    <button onclick="onTextAlign('center')" class="fas fa-align-center"></button>
+                    <button onclick="onTextAlign('right')" class="fas fa-align-right"></button>
+                </div>
+               
+                <div class="control-box-row flex">
+                    <select onchange="onFontFamily(this.value)"> 
+                        <option value="Impact">Impact</option> 
+                        <option value="Arial">Arial</option> 
+                        <option value="Cursive">Cursive</option> 
+                        <option value="Monospace">Monospace</option> 
+                        <option value="Tahoma">Tahoma</option> 
+                        <option value="Times New Roman">Times New Roman</option> 
+                    </select> 
+                    <input type="color" class="fas fa-palette" name="textColor" onchange="onTextColor()"  value="#ffffff" />
+                    <input type="color" name="strokeColor" onchange="onStrokeColor()" value="#000000" />
+                </div>
 
-                <button onclick="onAddNewLine()">Add new line</button>
-
-                <select onchange="onFontFamily(this.value)"> 
-                    <option value="Arial">Arial</option> 
-                    <option value="Cursive">Cursive</option> 
-                    <option value="Impact">Impact</option> 
-                    <option value="Monospace">Monospace</option> 
-                    <option value="Tahoma">Tahoma</option> 
-                    <option value="Times New Roman">Times New Roman</option> 
-                </select> 
-                <!-- <button onclick="onFontSize(1)">increase</button> 
-                <button onclick="onFontSize(-1)">decrease</button> -->
-
-                <button onclick="onTextAlign('left')">align left</button>
-                <button onclick="onTextAlign('center')">align center</button>
-                <button onclick="onTextAlign('right')">align right</button>
-
-                <button onclick="clearCanvas()">Clear</button>
-                <a href="#" class="download-link" onclick="downloadCanvas(this)" download="">Download</a> 
+                <a href="#" class="download-link" onclick="downloadCanvas(this)" download="">Download <i class="fas fa-arrow-down"></i></a> 
             </div>
         </div>
     
