@@ -35,7 +35,6 @@ function drawText(toShowShadow = true) {
     const currentLineIdx = getCurrentLineIdx();
     if (currentLineIdx >= 0) {
         var lines = getMeme().lines;
-        gCtx.lineWidth = '2';
         lines.forEach((line) => {
             gCtx.font = `${line.size}px ${line.font}`;
             gCtx.fillStyle = line.color;
@@ -47,7 +46,7 @@ function drawText(toShowShadow = true) {
             } else {
                 gCtx.shadowColor = 'transparent';
             }
-
+            
             gCtx.fillText(line.txt, line.x, line.y);
             gCtx.strokeText(line.txt, line.x, line.y);
         });
@@ -130,6 +129,7 @@ function onFontSize(size) {
 }
 
 function onFilterKeyword(keywordToSearch) {
+    setKeywordClickes(keywordToSearch);
     var images = getImages();
     var htmlStr = '';
 
@@ -140,6 +140,7 @@ function onFilterKeyword(keywordToSearch) {
         htmlStr += `<img src="${img.url}" alt="" title="" onclick="onSelectedImg(${img.id})"/>`;
     });
     document.querySelector('.gallery').innerHTML = htmlStr;
+    renderKeywords()
 }
 
 function renderKeywords() {

@@ -9,23 +9,23 @@
 
 </head>
 <body onload="onInit()" class="flex">
+    <div class="screen" onclick="toggleMenu()"></div>
     <header class="header flex space-between">
-        <a href="/"><h1 class="header-title">Meme Generator</h1></a>
+        <a href="index.html"><h1 class="header-title">Meme Generator</h1></a>
         
         <ul class="header-nav clear-list">
-            <li><a href="#">My Memes</a></li>
-            <li><a href="#">About Me</a></li>
+            <li><a href="index.html">Gallery</a></li>
+            <li><a href="https://www.linkedin.com/in/yulia-alexeev-49853770/" target="_blank">About Me</a></li>
         </ul>
+        <button onClick="toggleMenu()" class="nav-btn fas fa-bars"></button>
     </header>
     
-    
     <ul class="keywords-list clear-list"></ul>
-   
-
+    
     <div class="main">
         <div class="control">
-            <canvas id="meme-canvas" width="500" height="500"></canvas>
             
+            <canvas id="meme-canvas" width="500" height="500"></canvas>
             <div class="control-box flex">
                 <input type="text" name="textType" onkeyup="onTextType()" class="control-box-row"/>
                 <div class="control-box-row flex justify-center">
@@ -59,7 +59,6 @@
             </div>
         </div>
     
-       
         <div class="gallery"></div>
     </div>
     <footer class="footer">
@@ -67,6 +66,7 @@
 
         <small>Made By Yulia</small>
     </footer>
+    <script src="js/util-service.js"></script>
     <script src="js/controller.js"></script>
     <script src="js/service.js"></script>
 </body>
