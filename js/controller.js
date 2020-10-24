@@ -74,6 +74,7 @@ function onTextType() {
 function onSelectedImg(imageId) {
     document.querySelector('.control').style.display = 'flex';
     document.querySelector('.gallery').style.display = 'none';
+    document.querySelector('.keywords').style.display = 'none';
     selectImg(imageId);
     drawImg();
 }

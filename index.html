@@ -6,7 +6,6 @@
     <title>Meme Generator</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body onload="onInit()" class="flex">
     <div class="screen" onclick="toggleMenu()"></div>
@@ -19,8 +18,10 @@
         </ul>
         <button onClick="toggleMenu()" class="nav-btn fas fa-bars"></button>
     </header>
-    
-    <ul class="keywords-list clear-list"></ul>
+    <div class="keywords">
+        <h3 class="secondary-title">Filter By Keyword:</h3>
+        <ul class="keywords-list clear-list"></ul>
+    </div>
     
     <div class="main">
         <div class="control">
@@ -63,7 +64,6 @@
     </div>
     <footer class="footer">
         <h2 class="header-title">Meme Generator</h2>
-
         <small>Made By Yulia</small>
     </footer>
     <script src="js/util-service.js"></script>

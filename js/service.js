@@ -31,21 +31,13 @@ var gImgs = [
     { id: 10, url: 'gallery/10.jpg', keywords: ['Man', 'Obama', 'Happy'] },
     { id: 11, url: 'gallery/11.jpg', keywords: ['Man'] },
     { id: 12, url: 'gallery/12.jpg', keywords: ['Man', 'Movie/TV Show'] },
-    {
-        id: 13,
-        url: 'gallery/13.jpg',
-        keywords: ['Man', 'Happy', 'Movie/TV Show'],
-    },
+    { id: 13, url: 'gallery/13.jpg', keywords: ['Man', 'Happy', 'Movie/TV Show'] },
     { id: 14, url: 'gallery/14.jpg', keywords: ['Man', 'Movie/TV Show'] },
     { id: 15, url: 'gallery/15.jpg', keywords: ['Man', 'Movie/TV Show'] },
-    {
-        id: 16,
-        url: 'gallery/16.jpg',
-        keywords: ['Man', 'Happy', 'Movie/TV Show'],
-    },
+    { id: 16, url: 'gallery/16.jpg', keywords: ['Man', 'Happy', 'Movie/TV Show'] },
     { id: 17, url: 'gallery/17.jpg', keywords: ['Man', 'Putin'] },
     { id: 18, url: 'gallery/18.jpg', keywords: ['cartoon'] },
-];
+    ];
 
 function createLine(txt, x, y) {
     return {

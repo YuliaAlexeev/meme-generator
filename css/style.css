@@ -57,16 +57,17 @@ button {
     font-family: 'Carter One', cursive;
     text-shadow: 2px 2px 0px #000;
 }
-
-/* .header-nav li{
-    display: inline-block;
-} */
-
 .keywords-list {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+}
+.secondary-title{
+    text-align: center;
+    color: #ff7f00;
+    margin-bottom: 5px;
+    font-weight: normal;
 }
 .keywords-list li {
     margin-right: 10px;
@@ -121,11 +122,9 @@ input[type='color'] {
     border-radius: 12px;
     -webkit-appearance: none;
 }
-
 .control-box-row button:hover {
     color: #ff7f00;
 }
-
 .download-link {
     border-radius: 10px;
     padding: 20px;
@@ -241,8 +240,8 @@ canvas {
 
 @media (min-width: 557px) {
     .control-box {
-        max-width: 50%;
-        margin: 0 auto;
+        width: 46%;
+        margin-left: 4%;
     }
     select,input[type='text'],.download-link {
         font-size: 1.25rem;
