@@ -4,47 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body onload="onInit()" class="flex">
     <header class="header flex space-between">
-        <h1 class="header-title">Meme Generator</h1>
+        <a href="/"><h1 class="header-title">Meme Generator</h1></a>
         
         <ul class="header-nav clear-list">
             <li><a href="#">My Memes</a></li>
             <li><a href="#">About Me</a></li>
         </ul>
     </header>
-    <section class="sub-header">
+    
+    
+    <ul class="keywords-list clear-list"></ul>
+   
 
-        <form onchange="onSearch(this.value)">
-            
-            <input list="keyboards" name="category" id="category" placeholder="Enter search keyword">
-
-            <datalist id="keyboards" >
-                <option value="happy" >
-                <option value="Cat"></option>
-                <option value="Dog"></option>
-                <option value="Cute"></option>
-                <option value="Funny"></option>
-                <option value="Trump"></option>
-                <option value="Baby"></option>
-                  
-            </datalist>
-            <input type="submit">
-        </form>
-
-        <div class="keywords">
-            <ul class="keywords-list clear-list"></ul>
-        </div>
-
-    </section>
     <div class="main">
-        <div class="control flex">
+        <div class="control">
             <canvas id="meme-canvas" width="500" height="500"></canvas>
             
             <div class="control-box flex">
@@ -72,7 +51,7 @@
                         <option value="Tahoma">Tahoma</option> 
                         <option value="Times New Roman">Times New Roman</option> 
                     </select> 
-                    <input type="color" class="fas fa-palette" name="textColor" onchange="onTextColor()"  value="#ffffff" />
+                    <input type="color"  name="textColor" onchange="onTextColor()"  value="#ffffff" />
                     <input type="color" name="strokeColor" onchange="onStrokeColor()" value="#000000" />
                 </div>
 
@@ -84,7 +63,9 @@
         <div class="gallery"></div>
     </div>
     <footer class="footer">
-        Yulia
+        <h2 class="header-title">Meme Generator</h2>
+
+        <small>Made By Yulia</small>
     </footer>
     <script src="js/controller.js"></script>
     <script src="js/service.js"></script>

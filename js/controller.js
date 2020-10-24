@@ -2,150 +2,147 @@
 var gElCanvas;
 var gCtx;
 
-function onInit(){
+function onInit() {
     renderImages();
     renderKeywords();
+    document.querySelector('.control').style.display = 'none';
     gElCanvas = document.querySelector('#meme-canvas');
     gCtx = gElCanvas.getContext('2d');
     console.log('canvas properties:', gCtx);
-  
 }
 
-function drawImg() {
-    var img = new Image()
+function drawImg(toShowShadow = true) {
+    var img = new Image();
     var memeIdx = getMeme().selectedImgId;
     var currentMemeUrl = getImageById(memeIdx).url;
-    
+
     img.src = `./${currentMemeUrl}`;
     img.onload = () => {
-        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-        renderText()
-    }
+        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
+        renderText(toShowShadow);
+    };
 }
 
-function renderText(){
-    if(getCurrentLineIdx() >= 0){
+function renderText(toShowShadow = true) {
+    if (getCurrentLineIdx() >= 0) {
         var currentLine = getCurrentLine();
-        drawText()
+        drawText(toShowShadow);
         document.querySelector('input[name=textType]').value = currentLine.txt;
     }
 }
 
-function drawText(){ 
+function drawText(toShowShadow = true) {
     const currentLineIdx = getCurrentLineIdx();
-
-    if(currentLineIdx >= 0){
+    if (currentLineIdx >= 0) {
         var lines = getMeme().lines;
         gCtx.lineWidth = '2';
-
-        lines.forEach(line => {
+        lines.forEach((line) => {
             gCtx.font = `${line.size}px ${line.font}`;
             gCtx.fillStyle = line.color;
             gCtx.strokeStyle = line.strokeColor;
             gCtx.textAlign = line.align;
-            if(line === getCurrentLine()){
-                gCtx.shadowBlur = 20;
-                gCtx.shadowColor = "Blue";
+            if (line === getCurrentLine() && toShowShadow) {
+                gCtx.shadowBlur = 5;
+                gCtx.shadowColor = '#a900ff';
+            } else {
+                gCtx.shadowColor = 'transparent';
             }
-            else{
-                gCtx.shadowColor = "transparent";
-            }
-            
+
             gCtx.fillText(line.txt, line.x, line.y);
             gCtx.strokeText(line.txt, line.x, line.y);
-        })
-        
+        });
     }
 }
 
-function onTextColor(){
+function onTextColor() {
     var txtColor = document.querySelector('input[name="textColor"]').value;
     setTextColor(txtColor);
     drawImg();
 }
 
-function onStrokeColor(){
+function onStrokeColor() {
     var strkColor = document.querySelector('input[name="strokeColor"]').value;
     setStrokeColor(strkColor);
     drawImg();
 }
 
-function onTextType(){
+function onTextType() {
     var text = document.querySelector('input[name=textType]').value;
     setMemeText(text);
     drawImg();
 }
 
-function onSelectedImg(imageId){
-    selectImg(imageId)
+function onSelectedImg(imageId) {
+    document.querySelector('.control').style.display = 'flex';
+    document.querySelector('.gallery').style.display = 'none';
+    selectImg(imageId);
     drawImg();
 }
 
-function onAddNewLine(){
+function onAddNewLine() {
     var newText = 'New Line';
     document.querySelector('input[name=textType]').value = newText;
-    drawText();
     setNewLine(newText);
     drawImg();
 }
 
-function onDeleteLine(){
+function onDeleteLine() {
     deleteLine();
     drawImg();
 }
 
-function onSwichLine(){
+function onSwichLine() {
     var lines = getMeme().lines;
-    // var currentLine = getCurrentLine();
-   
+    const currentLineIdx = getCurrentLineIdx();
 
-    if(gMeme.selectedLineIdx === -1){
+    if (currentLineIdx < lines.length - 1) {
+        gMeme.selectedLineIdx += 1;
+    } else {
         gMeme.selectedLineIdx = 0;
     }
-
-
-    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx);
-   
+    drawImg();
 }
 
-function renderImages(){
+function renderImages() {
     var images = getImages();
     var htmlStr = '';
 
-    images.forEach(img => {
+    images.forEach((img) => {
         htmlStr += `<img src="${img.url}" alt="" title="" onclick="onSelectedImg(${img.id})"/>`;
     });
     document.querySelector('.gallery').innerHTML = htmlStr;
 }
 
-function onTextAlign(alignText){
+function onTextAlign(alignText) {
     setTextAlign(alignText);
     drawImg();
 }
 
-function onFontFamily(fontStyle){
-    console.log(fontStyle)
+function onFontFamily(fontStyle) {
     setFontFamily(fontStyle);
     drawImg();
 }
 
-function onFontSize(size){
+function onFontSize(size) {
     var currentLineSize = getCurrentLine().size + size;
-    setFontSize(currentLineSize)
+    setFontSize(currentLineSize);
     drawImg();
 }
 
-function onFilterKeyword(keywordToSearch){
+function onFilterKeyword(keywordToSearch) {
     var images = getImages();
     var htmlStr = '';
-    var filteredImages = images.filter(img => img.keywords.includes(keywordToSearch));
-    filteredImages.forEach(img => {
+
+    var filteredImages = images.filter((img) =>
+        img.keywords.includes(keywordToSearch)
+    );
+    filteredImages.forEach((img) => {
         htmlStr += `<img src="${img.url}" alt="" title="" onclick="onSelectedImg(${img.id})"/>`;
     });
     document.querySelector('.gallery').innerHTML = htmlStr;
 }
 
-function renderKeywords(){
+function renderKeywords() {
     var keywords = getKeywords();
     var htmlStr = '';
     for (const keyword in keywords) {
@@ -154,11 +151,9 @@ function renderKeywords(){
     document.querySelector('.keywords-list').innerHTML = htmlStr;
 }
 
-
 function downloadCanvas(elLink) {
-    const data = gElCanvas.toDataURL()
-    console.log('downloadCanvas',data);
+    drawImg(false)
+    const data = gElCanvas.toDataURL();
     elLink.href = data;
     elLink.download = 'my-meme.jpg';
 }
-

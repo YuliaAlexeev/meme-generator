@@ -9,23 +9,23 @@ var gMeme = {
 
 var gImgs = [{id: 1, url: 'gallery/1.jpg', keywords: ['Trump']},
              {id: 2, url: 'gallery/2.jpg', keywords: ['Dog', 'Cute']},
-             {id: 3, url: 'gallery/3.jpg', keywords: ['Happy']},
+             {id: 3, url: 'gallery/3.jpg', keywords: ['Dog', 'Cute', 'Sleep', 'Baby']},
              {id: 4, url: 'gallery/4.jpg', keywords: ['Cat', 'Sleep', 'Cute']},
              {id: 5, url: 'gallery/5.jpg', keywords: ['Baby', 'Funny']},
-             {id: 6, url: 'gallery/6.jpg', keywords: ['Man']},
+             {id: 6, url: 'gallery/6.jpg', keywords: ['Man', 'Movie/TV Show']},
              {id: 7, url: 'gallery/7.jpg', keywords: ['Man', 'Cute']},
-             {id: 8, url: 'gallery/8.jpg', keywords: ['Man']},
-             {id: 9, url: 'gallery/9.jpg', keywords: ['Baby']},
+             {id: 8, url: 'gallery/8.jpg', keywords: ['Man', 'Movie/TV Show']},
+             {id: 9, url: 'gallery/9.jpg', keywords: ['Baby', 'Funny']},
              {id: 10, url: 'gallery/10.jpg', keywords: ['Man', 'Obama', 'Happy']},
 
              {id: 11, url: 'gallery/11.jpg', keywords: ['Man']},
-             {id: 12, url: 'gallery/12.jpg', keywords: ['Man']},
-             {id: 13, url: 'gallery/13.jpg', keywords: ['Man', 'Happy']},
-             {id: 14, url: 'gallery/14.jpg', keywords: ['Man']},
-             {id: 15, url: 'gallery/15.jpg', keywords: ['Man']},
-             {id: 16, url: 'gallery/16.jpg', keywords: ['Man', 'Happy']},
+             {id: 12, url: 'gallery/12.jpg', keywords: ['Man', 'Movie/TV Show']},
+             {id: 13, url: 'gallery/13.jpg', keywords: ['Man', 'Happy', 'Movie/TV Show']},
+             {id: 14, url: 'gallery/14.jpg', keywords: ['Man', 'Movie/TV Show']},
+             {id: 15, url: 'gallery/15.jpg', keywords: ['Man', 'Movie/TV Show']},
+             {id: 16, url: 'gallery/16.jpg', keywords: ['Man', 'Happy', 'Movie/TV Show']},
              {id: 17, url: 'gallery/17.jpg', keywords: ['Man', 'Putin']},
-             {id: 18, url: 'gallery/18.jpg', keywords: ['Man', 'Obama', 'Happy']}
+             {id: 18, url: 'gallery/18.jpg', keywords: ['cartoon']}
             ];
 
 
@@ -101,7 +101,6 @@ function deleteLine(){
     gMeme.lines.splice(getCurrentLineIdx(), 1);
     gNewLine--;
     gMeme.selectedLineIdx = gNewLine;
-    console.log('fff', gMeme);
 }
 
 function getKeywords(){
