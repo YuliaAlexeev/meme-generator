@@ -24,39 +24,29 @@
     </div>
     
     <div class="main">
-        <div class="control">
-            
+        <div class="editor">
             <canvas id="meme-canvas" width="500" height="500"></canvas>
-            <div class="control-box flex">
-                <input type="text" name="textType" onkeyup="onTextType()" class="control-box-row"/>
-                <div class="control-box-row flex justify-center">
-                    <button onclick="onSwichLine()" class="fas fa-sync-alt"></button>
-                    <button onclick="onAddNewLine()" class="fas fa-plus-circle"></button>
-                    <button onclick="onDeleteLine()" class="fas fa-trash-alt"></button>
-                </div>
-                
-                <div class="control-box-row flex space-between">
-                    <button onclick="onFontSize(1)"><i class="fas fa-font"></i><i class="fas fa-plus"></i></button> 
-                    <button onclick="onFontSize(-1)"><i class="fas fa-font"></i><i class="fas fa-minus"></i></button>
-                    <button onclick="onTextAlign('left')" class="fas fa-align-left"></button>
-                    <button onclick="onTextAlign('center')" class="fas fa-align-center"></button>
-                    <button onclick="onTextAlign('right')" class="fas fa-align-right"></button>
-                </div>
-               
-                <div class="control-box-row flex">
-                    <select onchange="onFontFamily(this.value)"> 
-                        <option value="Impact">Impact</option> 
-                        <option value="Arial">Arial</option> 
-                        <option value="Cursive">Cursive</option> 
-                        <option value="Monospace">Monospace</option> 
-                        <option value="Tahoma">Tahoma</option> 
-                        <option value="Times New Roman">Times New Roman</option> 
-                    </select> 
-                    <input type="color"  name="textColor" onchange="onTextColor()"  value="#ffffff" />
-                    <input type="color" name="strokeColor" onchange="onStrokeColor()" value="#000000" />
-                </div>
-
-                <a href="#" class="download-link" onclick="downloadCanvas(this)" download="">Download <i class="fas fa-arrow-down"></i></a> 
+            <div class="editor-box">
+                <input type="text" name="memeTxt" onkeyup="onTextType()" class="control-box-row"/>
+                <button onclick="onSwichLine()" class="fas fa-sync-alt swich-btn"></button>
+                <button onclick="onAddNewLine()" class="fas fa-plus-circle add-btn"></button>
+                <button onclick="onDeleteLine()" class="fas fa-trash-alt delete-btn"></button>
+                <button onclick="onFontSize(1)" class="increase-btn"><i class="fas fa-font"></i><i class="fas fa-plus"></i></button> 
+                <button onclick="onFontSize(-1)" class="decrease-btn"><i class="fas fa-font"></i><i class="fas fa-minus"></i></button>
+                <button onclick="onTextAlign('left')" class="fas fa-align-left align-left-btn"></button>
+                <button onclick="onTextAlign('center')" class="fas fa-align-center align-center-btn"></button>
+                <button onclick="onTextAlign('right')" class="fas fa-align-right align-right-btn"></button>
+                <select onchange="onFontFamily(this.value)" class="font-select"> 
+                    <option value="Impact">Impact</option> 
+                    <option value="Arial">Arial</option> 
+                    <option value="Cursive">Cursive</option> 
+                    <option value="Monospace">Monospace</option> 
+                    <option value="Tahoma">Tahoma</option> 
+                    <option value="Times New Roman">Times New Roman</option> 
+                </select> 
+                <input type="color" name="textColor" onchange="onTextColor()" class="color-btn" value="#ffffff" />
+                <input type="color" name="strokeColor" onchange="onStrokeColor()" class="fill-btn" value="#000000" />
+                <a href="#" class="download-link" onclick="downloadCanvas(this)">Download <i class="fas fa-arrow-down"></i></a> 
             </div>
         </div>
     

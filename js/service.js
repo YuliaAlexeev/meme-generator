@@ -118,5 +118,5 @@ function getKeywords() {
 }
 
 function setKeywordClickes(keywordClick) {
-    getKeywords()[keywordClick] += 1;
+    getKeywords()[keywordClick]++;
 }
